@@ -13,43 +13,52 @@
 		</script> 
 		<script> 
 			var scene = new THREE.Scene(); 
-			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 ); 
+			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.01, 100000 ); 
 			var renderer = new THREE.WebGLRenderer(); 
 			
 			renderer.setSize( window.innerWidth, window.innerHeight ); 
 			document.body.appendChild( renderer.domElement ); 
-			
+
+			//Begining of code to retrieve the polygon vertex coordinate list
+			fs = require('fs')
+			fs.readFile('/home/kremer/Documents/Projects/3D_Modeler/render_info', 'utf8', function (err,polyinfo) {
+			  if (err) {
+			    return console.log(err);
+			  }
+			  console.log(polyinfo);
+			});
+			//EOC
+			//Begining of information that takes the string\polygon-list and converts it into an array of [row][column] with the values listed
+				var line = polylist.split("\n");
+				var coord = new Array();
+				for(i=0;i<3;i++) {
+					coord[i] = line[i].split(" ");
+				}
+			//EOC
 			//Begining of information determing what is displayed, rather than if it is displayed
+				var tri_0 = new THREE.Geometry();
+				var v01 = new THREE.Vector3(1,0,0); 
+				var v02 = new THREE.Vector3(0,1,0);
+				var v03 = new THREE.Vector3(0,0,1);
 
-				//var geometry = new THREE.BoxGeometry( 1, 1, 1 ); 
-				//var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); 
-				//var cube = new THREE.Mesh( geometry, material ); 	
-				//scene.add( cube );
+				tri_0.vertices.push(v01);
+				tri_0.vertices.push(v02);
+				tri_0.vertices.push(v03);
 
-				var geometry = new THREE.Geometry();
-				var v1 = new THREE.Vector3(5,0,0);
-				var v2 = new THREE.Vector3(0,5,0);
-				var v3 = new THREE.Vector3(0,0,5);
-
-				geometry.vertices.push(v1);
-				geometry.vertices.push(v2);
-				geometry.vertices.push(v3);
-
-				geometry.faces.push(new THREE.Face3(0, 1, 2)); 
+				tri_0.faces.push(new THREE.Face3(0, 1, 2)); 
 
 				var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-				var triangle = new THREE.Mesh(geometry, material);
+				var tri_0_fin = new THREE.Mesh(tri_0, material);
 
-				scene.add(triangle);
-
-			//End of information about the what
+				scene.add(tri_0_fin);
+			//EOC
 			
-			camera.position.z = 5; 
+			camera.position.z = 6; 
 			
 			var render = function () { 
 				requestAnimationFrame( render ); 
-				cube.rotation.x += 0.1; 
-				cube.rotation.y += 0.1; 
+				//scene.rotation.x += 0.05; 
+				scene.rotation.y += 0.05; 
 				renderer.render(scene, camera); 
 			}; 
 
