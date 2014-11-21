@@ -20,57 +20,55 @@
 			document.body.appendChild( renderer.domElement ); 
 
 			//Begining of code to retrieve the polygon vertex-coordinate list from render_info
-			//	fs = require('fs')
-			//	fs.readFile('render_info', 'utf8', function (err,polyinfo) {
-			//	  if (err) {
-			//	    return console.log(err);
-			//	  }
-			//	  console.log(polylist);
-			//	});
-			//	//This block of code fails to place the contents of the render_info file into the polylist var as of 2014-11-20
-			//EOC
-			
-			var polylist = "1 0 0\n0 1 0\n0 0 1\n0 0 -1\n0 1 0\n1 0 0\n-1 0 0\n0 1 0\n0 0 -1\n0 0 1\n0 1 0\n-1 0 0";
-			var rows = polylist.split("\n").length;
-
-			//Begining of code that takes polylist (list of polygons to make) and converts it into an array of coord[row][column] with the values listed
-				var line = polylist.split("\n");
-				var coord = new Array();
-				for(y=0;y<rows;y++) { 
-					coord[y] = line[y].split(" ");
+				//var polylist = FileReader.readAsText(Blob|File, opt_encoding);
+				var reader = new FileReader();
+				reader.onload = function(e) {
+  					var text = reader.result;
 				}
+				var polylist = reader.readAsText(render_info);
+				alert(polylist);
 			//EOC
-			//Begining of code determing what is displayed, rather than if it is displayed
-				var tri = new Array();
-				var vertex = new Array();
-				
-				for(p=0;p<rows/3;p++){  //p is for polygon
-					tri[p] = new THREE.Geometry();
-					for(r=0;r<rows;r++) { //r is for row
-						vertex[r] = new THREE.Vector3(coord[r][0],coord[r][1],coord[r][2]);
+
+			function refresh_render() {
+				//Begining of code that takes polylist (list of polygons to make) and converts it into an array of coord[row][column] with the values listed
+					var rows = polylist.split("\n").length;
+					var line = polylist.split("\n");
+					var coord = new Array();
+					for(y=0;y<rows;y++) { 
+						coord[y] = line[y].split(" ");
 					}
-					for(r=0;r<rows;r++) { //r is for row
-						tri[p].vertices.push(vertex[r]);
-					}					
-					tri[p].faces.push(new THREE.Face3(2*p,2*p+1,2*p+2));
+				//EOC
+				//Begining of code determing what is displayed, rather than if it is displayed
+					var tri = new Array();
+					var vertex = new Array();
 					
-					var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-					var tri_fin = new THREE.Mesh(tri[p], material);
-					scene.add(tri_fin);
-				}
-			//EOC
-			//Begining of code determining where the camera is
-				camera.position.z = 6; 
-				
-				var render = function () { 
-					requestAnimationFrame( render ); 
-					scene.rotation.x += 0.01; 
-					//scene.rotation.y += 0.01; 
-					renderer.render(scene, camera); 
-				};
-			//EOC 
-
-			render();
+					for(p=0;p<rows/3;p++){  //p is for polygon
+						tri[p] = new THREE.Geometry();
+						for(r=0;r<rows;r++) { //r is for row
+							vertex[r] = new THREE.Vector3(coord[r][0],coord[r][1],coord[r][2]);
+						}
+						for(r=0;r<rows;r++) { //r is for row
+							tri[p].vertices.push(vertex[r]);
+						}					
+						tri[p].faces.push(new THREE.Face3(2*p,2*p+1,2*p+2));
+						
+						var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+						var tri_fin = new THREE.Mesh(tri[p], material);
+						scene.add(tri_fin);
+					}
+				//EOC
+				//Begining of code determining where the camera is
+					camera.position.z = 6; 
+					
+					var render = function () { 
+						requestAnimationFrame( render ); 
+						scene.rotation.x += 0.01; 
+						//scene.rotation.y += 0.01; 
+						renderer.render(scene, camera); 
+					};
+				//EOC 
+				render();
+			}
 		</script> 
 	</body> 
 </html>
