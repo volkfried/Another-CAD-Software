@@ -1,0 +1,91 @@
+units: mm degrees 
+sketch-0
+	plane: z = x + y
+	op-1
+		path:
+		include:
+	op-2
+		path:
+		include:
+	op-3
+		path:
+		include:
+	line-0
+		pnt-1:
+		pnt-2:
+	obj
+		arc-0
+			center:
+			eccentricity:
+			angle of elevation:
+			angle-0:
+			angle-1:
+		spline-0
+			point-1:
+			point-2:
+			point-3:
+			point-4:
+		dimensions
+			d1
+				type: horz-dis
+				obj-1: line-0/pnt-1
+				obj-2: line-0/pnt-2
+				value: 5
+			d2
+				type: vert-dis
+				obj-1: line-0/pnt-1
+				obj-2: line-0/pnt-2
+				value: 8
+			d3
+				type: algn-dis
+				obj-1: line-1/pnt-1
+				obj-2: line-2/pnt-2
+				value: 32
+			d4
+				type: rad-dis
+				obj-1: arc-0
+				value: 10
+			d5
+				type: angl-dis
+				obj-1: line-0
+				obj-2: line-3
+				value: 67
+	constraints
+		c1
+			type: parralel
+			obj-1:
+			obj-2:
+		c2
+			type: perpendicular
+			obj-1:
+			obj-2:
+		c3
+			type: concentric
+			obj-1:
+			obj-2:
+		c4
+			type: equal
+			obj-1:
+			obj-2:
+		c5
+			type: horizantal
+			obj-1:
+			obj-2:
+		c6
+			type: vertical
+			obj-1:
+			obj-2:
+		c7
+			type:
+			obj-1:
+			obj-2:
+		c8
+			type:
+			obj-1:
+			obj-2:
+		c9
+			type:
+			obj-1:
+			obj-2:
+
+
