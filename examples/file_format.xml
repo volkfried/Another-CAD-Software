@@ -1,0 +1,85 @@
+## NOTE:
+## This format is not totally nailed down yet, however a general style is forming. It is recommended that you read the other example files as well.  
+
+
+## Possible values: {mm in} {degrees radians}
+units: mm degrees
+
+## Denotes the first sketch in the part. The second will be sketch-1, etc. 
+sketch-0
+	
+	## The plane that the sketch lies on. Any equation for a flat surface works. 
+	plane: z = 0
+	
+	## The first operation to be performed. Second will be op-1, etc. 
+	op-0
+		
+		## The path of the operation. A linear path is an extrusion, a polar path is a rotation, a curved path is a loft, etc.
+		path: z
+		
+		## The distance that the path is to be traveled. This is the actual distance traveled, rather than the change in absolute distance. For lofts, it is reccomended it be parametric. 
+		dis 
+			30
+		
+		## Not every operation will use every aspect of the sketch. This selects which objects are included.
+		include: all
+
+			## Some surfaces will have material below them, and others above them. This is specified in the operation. 
+			obj-0: y >
+			obj-1: y <
+			obj-2: x >
+			obj-3: x <
+	
+	objects
+		obj-0
+			## syntax is (x,y)
+			origin: c0
+			
+			## Parametric equations are automatically dealt with. The coordinate system used is automatically detected. Use (x,y) or (r,@) as outputs.
+			Equs
+				
+				## Range of the equation is specified. Dependent variable is automatically found. 
+				y = 0, 0 to 10
+		obj-1
+			origin: c1
+			Equs
+				y = 10, 0 to 10
+		obj-2
+			origin: c2
+			Equs
+				x = 0, 0 to 10
+		obj-3
+			origin: c3, 0 to 10
+			Equs
+				x = 10, 0 to 10
+	dimensions
+		d0
+			## Possible values: {rad-dis diameter align-dis angle horz-dis vert-dis}
+			type:
+
+			## objects being constrainted together
+			obj-0: ## obj-a
+			obj-1: ## obj-b
+			
+			## Numerical value, be it an angle or a distance
+			value: 10
+	constraints
+		c0
+			## Possible values: {concurrent concentric parallel perpendicular horizantal vertical tangent-int tangent-ext equal}
+			type: concurrent
+
+			obj-0: obj-0
+			obj-1: origin
+		c1
+			type: concurrent
+			obj-0: obj-1
+			obj-1: origin
+		c2
+			type: concurrent
+			obj-0: obj-2
+			obj-1: origin
+		c3
+			type: concurrent
+			obj-0: obj-3
+			obj-1: origin
+

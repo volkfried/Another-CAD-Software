@@ -3,36 +3,23 @@ sketch-0
 	plane: z = 0
 	op-0
 		path: z
-		dis 
+		dis
 			30
 		include: all
-			obj-0: r <
-			obj-1: r >
+			obj-0: r < 
 	objects
 		obj-0
 			origin: c0
 			Equs
 				r = d0, 0 to 360
-		obj-1
-			origin: c1
-			Equs
-				r = d1, 0 to 360
 	dimensions
 		d0
 			type: rad-dis
 			obj-0: obj-0 
 			value: 10
-		d1
-			type: rad-dis
-			obj-0: obj-1
-			value: 5
 	constraints
 		c0
 			type: concentric
 			obj-0: obj-0
-			obj-1: origin
-		c1
-			type: concentric
-			obj-0: obj-1
 			obj-1: origin
 

@@ -1,0 +1,70 @@
+units: mm degrees 
+sketch-0 
+	plane: z = 0
+	op-0
+		path: z
+		dis 
+			30
+		include: all 
+			obj-0: y >
+			obj-1: y <
+			obj-2: x >
+			obj-3: x <
+	objects
+		obj-0
+			origin: 
+			Equs
+				c0, d0
+		obj-1
+			origin: 
+			Equs
+				c1, c4
+		obj-2
+			origin: 
+			Equs
+				c2, c4
+		obj-3
+			origin:
+			Equs
+				c3, c4
+	dimensions
+		d0
+			type: align-dis
+			obj-0: obj-0
+			value: 10
+	constraints
+		c0
+			type: horizantal
+			obj-0: obj-0
+		c1
+			type: horizantal
+			obj-0: obj-1
+		c2
+			type: vertical
+			obj-0: obj-2
+		c3
+			type: vertical
+			obj-0: obj-3
+		c4
+			type: equal
+			obj-0: obj-0
+			obj-1: obj-1
+			obj-2: obj-2
+			obj-3: obj-3
+		c5
+			tyoe: concurrent
+			obj-: obj-0/pnt-0
+			obj-: origin
+		c5
+			tyoe: concurrent
+			obj-: obj-0/pnt-0
+			obj-: obj-2/pnt-1
+		c5
+			tyoe: concurrent
+			obj-: obj-0/pnt-1
+			obj-: obj-3/pnt-0
+		c5
+			tyoe: concurrent
+			obj-: obj-2/pnt-2
+			obj-: obj-1/pnt-1
+
