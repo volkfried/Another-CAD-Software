@@ -1,31 +1,56 @@
 ﻿Another CAD Software
 
-Currently existing FOSS CAD softwares have the ill foundation that they are built on tools for creating pre-formed 3D objects, such as a torus, rather than from simpler, two dimensional, constituent shapes. ACS aims to be a CAD software whose core centers on defining the surfaces of objects from the equations describing them, thus enabling greater ease of sophistication. 
+Currently existing FOSS CAD softwares have the ill foundation that they are built on tools for 
+creating pre-formed 3D objects, such as a torus, rather than from simpler, two dimensional,
+constituent shapes. ACS aims to be a CAD software whose core centers on defining the surfaces 
+of objects from the equations describing them, thus enabling greater ease of sophistication. 
 
-The following is a brief description of each (currently defined) ACS component's function. Be sure to see /docs/flowchart.jpg and /docs/flowchart_verbose.jpg. 
+The following is a brief description of each (currently defined) ACS component's function. Be 
+sure to see /docs/flowchart.jpg and /docs/flowchart_verbose.jpg. 
 
 /display/active_file.xml
-This file stores the part as it currently exists, and uses the same format as the final save file of the object. An example, albeit incomplete, active_file.xml has been placed in /display (where a final version would be automatically made and worked with). 
+This file stores the part as it currently exists, and uses the same format as the final save 
+file of the object. An example, albeit incomplete, active_file.xml has been placed in /display 
+(where a final version would be automatically made and worked with). More examples are in 
+/examples. 
 
 /display/surf_equ_gen.py
-The surface equation generator. Because active_file.xml is intended to be human readable, it relies heavily on parametricization. This component's function is to remove that parametricization, and output a series of surface equations that require no outside references to position them in space properly.  
+The surface equation generator. Because active_file.xml is intended to be human readable, it 
+relies heavily on parametricization. This component's function is to remove that 
+parametricization, and output a series of surface equations that require no outside references 
+to position them in space properly.  
 
 /display/collision_find.py
-In order to accurately render an object, mesh points must be placed at the locations of intersection between surfaces. This component takes the surface equations given to it by surf_equ_gen.py and finds the lines of intersection between them. 
+In order to accurately render an object, mesh points must be placed at the locations of 
+intersection between surfaces. This component takes the surface equations given to it by 
+surf_equ_gen.py and finds the lines of intersection between them. 
 
 /display/point_gen.py
-Takes the information provided to it by collision_find.py and surf_equ_gen.py to generate the points to be used by OpenGL to make the part mesh. If the second derivative of a surface is always zero, only the edge points need be outputted. 
+Takes the information provided to it by collision_find.py and surf_equ_gen.py to generate the 
+points to be used by OpenGL to make the part mesh. If the second derivative of a surface is 
+always zero, only the edge points need be outputted. 
 
 /display/rm_excess.py
-Of an objects surfaces, physical material exists on only one side. If a part is chamfered, the plane forming that chamfer does not necessarily have material immediately touching it for the range that it exists over – it will have points on its existence which do not correspond to a point on the object. The function of this module is to remove excess surface points from the list given to it by point_gen.py.  
+Of an objects surfaces, physical material exists on only one side. If a part is chamfered, 
+the plane forming that chamfer does not necessarily have material immediately touching it for 
+the range that it exists over – it will have points on its existence which do not correspond 
+to a point on the object. The function of this module is to remove excess surface points from 
+the list given to it by point_gen.py.  
 
 /display/opengl_instr_gen.py
-Takes the final list of surface points given to it by rm_excess.py and converts it into instructions for OpenGL. 
+Takes the final list of surface points given to it by rm_excess.py and converts it into 
+instructions for OpenGL. 
 
-Each component sends its output to an appropriately named XML file in the folder data. Note that the symbolic manipulation which takes place will be handled by mathomatic (http://www.mathomatic.org/), with external assistance if necessary.
+Each component sends its output to an appropriately named XML file in the folder data. Note 
+that the symbolic manipulation which takes place will be handled by mathomatic 
+(http://www.mathomatic.org/), with external assistance if necessary.
 
 DEVELOPERS WANTED
-To say that this project is in its infancy would be an overstatement. Company whilst it progresses would be enjoyed. Understanding of Calculus, particularly those tools taught in university level Calculus III, is essential. Email me at jkremer952@gmail.com if you're interested. 
+To say that this project is in its infancy would be an overstatement (understatement? - the 
+point is it is very young and shouldn't be taken as anything more than a fun project). 
+Company whilst it progresses would be enjoyed. Understanding of Calculus, particularly those 
+tools taught in university level Calculus III, is essential. Email me at jkremer952@gmail.com 
+if you're interested. 
 
 Lead - and presently only - Developer,
 Kremer
